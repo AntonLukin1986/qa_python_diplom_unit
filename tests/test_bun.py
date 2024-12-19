@@ -1,9 +1,8 @@
 '''Тесты атрибутов и методов класса «Bun».'''
 import pytest
 
+from data import BUN
 from praktikum.bun import Bun
-
-BUN = {'name': 'Булка', 'price': 10.5}
 
 
 class TestBun:
@@ -11,13 +10,12 @@ class TestBun:
     @pytest.fixture(autouse=True)
     def create_bun_object(self):
         '''Создание нового объекта класса «Bun» для каждого теста.'''
-        self.bun = Bun(**BUN)               # нужно ли присваивание селф?
-        return self.bun
+        self.bun = Bun(**BUN)
 
     def test_init_bun_name_matches_passed_value(self):
         '''Название булки соответствует переданному значению и типу.'''
         name = self.bun.name
-        assert isinstance(name, str) and name == BUN['name']            # как вариант собрать проверки в общий метод
+        assert isinstance(name, str) and name == BUN['name']
 
     def test_init_bun_price_matches_passed_value(self):
         '''Цена булки соответствует переданному значению и типу.'''
