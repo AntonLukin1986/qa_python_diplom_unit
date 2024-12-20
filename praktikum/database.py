@@ -29,7 +29,6 @@ class Database:
         self.ingredients.append(
             Ingredient(INGREDIENT_TYPE_SAUCE, "chili sauce", 300)
         )
-
         self.ingredients.append(
             Ingredient(INGREDIENT_TYPE_FILLING, "cutlet", 100)
         )
