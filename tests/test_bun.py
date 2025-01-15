@@ -1,33 +1,25 @@
 '''Тесты атрибутов и методов класса «Bun».'''
-import pytest
-
 from data import BUN
-from praktikum.bun import Bun
 
 
 class TestBun:
 
-    @pytest.fixture(autouse=True)
-    def create_bun_object(self):
-        '''Создание нового объекта класса «Bun» для каждого теста.'''
-        self.bun = Bun(**BUN)
-
-    def test_init_bun_name_matches_passed_value(self):
+    def test_init_bun_name_matches_passed_value(self, test_bun):
         '''Название булки соответствует переданному значению и типу.'''
-        name = self.bun.name
+        name = test_bun.name
         assert isinstance(name, str) and name == BUN['name']
 
-    def test_init_bun_price_matches_passed_value(self):
+    def test_init_bun_price_matches_passed_value(self, test_bun):
         '''Цена булки соответствует переданному значению и типу.'''
-        price = self.bun.price
+        price = test_bun.price
         assert isinstance(price, float) and price == BUN['price']
 
-    def test_get_name_returns_bun_name(self):
+    def test_get_name_returns_bun_name(self, test_bun):
         '''Метод для получения названия возвращает название булки.'''
-        name = self.bun.get_name()
+        name = test_bun.get_name()
         assert isinstance(name, str) and name == BUN['name']
 
-    def test_get_price_returns_bun_price(self):
+    def test_get_price_returns_bun_price(self, test_bun):
         '''Метод для получения цены возвращает цену булки.'''
-        price = self.bun.get_price()
+        price = test_bun.get_price()
         assert isinstance(price, float) and price == BUN['price']

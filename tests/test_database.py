@@ -1,56 +1,37 @@
 '''Тесты атрибутов и методов класса «Database».'''
-from unittest.mock import patch
-
-import pytest
-
 from data import BUNS_DATA, INGREDIENT_DATA
-from praktikum.database import Database
+from helpers import get_buns_data, get_ingredients_data
 
 
 class TestDatabase:
 
-    @pytest.fixture(autouse=True)
-    @patch('praktikum.database.Ingredient')
-    @patch('praktikum.database.Bun')
-    def create_database_object(
-        self, mock_bun_init, mock_ingredient_init,
-        mock_buns_db, mock_ingredients_db
-    ):
-        '''Создание нового объекта класса «Database» для каждого теста.'''
-        mock_bun_init.side_effect = mock_buns_db
-        mock_ingredient_init.side_effect = mock_ingredients_db
-        self.database = Database()
-
-    def test_init_attr_buns_takes_list_of_buns(self):
+    def test_init_attr_buns_takes_list_of_buns(self, test_database):
         '''БД получает список булок при создании.'''
-        buns = self.database.buns
-        names_prices = [
-            (bun.get_name(), bun.get_price()) for bun in buns
-        ]
-        assert isinstance(buns, list) and names_prices == BUNS_DATA
+        buns = test_database.buns
+        assert isinstance(buns, list) and get_buns_data(buns) == BUNS_DATA
 
-    def test_init_attr_ingredients_takes_list_of_ingredients(self):
+    def test_init_attr_ingredients_takes_list_of_ingredients(
+            self, test_database
+       ):
         '''БД получает список ингредиентов при создании.'''
-        ingredients = self.database.ingredients
-        types_names_prices = [
-            (ing.get_type(), ing.get_name(), ing.get_price())
-            for ing in ingredients
-        ]
+        ingredients = test_database.ingredients
         assert (
             isinstance(ingredients, list) and
-            types_names_prices == INGREDIENT_DATA
+            get_ingredients_data(ingredients) == INGREDIENT_DATA
         )
 
-    def test_available_buns_returns_list_of_buns(self):
+    def test_available_buns_returns_list_of_buns(self, test_database):
         '''Метод для получения доступных булок возвращает список булок.'''
-        buns = self.database.available_buns()
-        assert isinstance(buns, list) and buns == self.database.buns
+        buns = test_database.available_buns()
+        assert isinstance(buns, list) and buns == test_database.buns
 
-    def test_available_ingredients_returns_list_of_ingredients(self):
+    def test_available_ingredients_returns_list_of_ingredients(
+            self, test_database
+       ):
         '''Метод для получения доступных ингредиентов возвращает список
         ингредиентов.'''
-        ingredients = self.database.available_ingredients()
+        ingredients = test_database.available_ingredients()
         assert (
             isinstance(ingredients, list) and
-            ingredients == self.database.ingredients
+            ingredients == test_database.ingredients
         )
