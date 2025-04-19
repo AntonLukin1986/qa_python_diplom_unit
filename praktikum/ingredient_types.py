@@ -1,7 +1,6 @@
-"""
-Перечисление с типами ингредиентов.
+'''Типы ингредиентов:
 SAUCE – соус
-FILLING – начинка
-"""
+FILLING – начинка.'''
+
 INGREDIENT_TYPE_SAUCE = 'SAUCE'
 INGREDIENT_TYPE_FILLING = 'FILLING'
